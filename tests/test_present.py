@@ -24,3 +24,10 @@ def test_unwrap_with_no_wrapped_presents():
     with pytest.raises(Exception) as err:
         present.unwrap()
     assert str(err.value) == "No contents have been wrapped."
+
+def test_wrapping_already_wrapped_preserves_value():
+    present = Present()
+    present.wrap("Bike")
+    with pytest.raises(Exception) as err:
+        present.wrap("Scooter")
+    assert present.unwrap() == "Bike"
